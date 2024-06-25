@@ -113,7 +113,7 @@ struct HomeView: View {
                         ForEach(store.notes.filter {
                             search.isEmpty ? true : $0.type == NoteType.text && String(data: $0.note, encoding: .utf8)!.contains(search)
                         }) { note in
-                            NavigationLink(destination: Text("Note")) {
+                            NavigationLink(destination: NoteView(note: note)) {
                                 CardView(
                                     notesTint: notesTint, note: note)
                             }

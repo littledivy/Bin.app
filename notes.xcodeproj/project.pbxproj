@@ -14,6 +14,7 @@
 		5A6CA63D2C2A76A5003BDB97 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6CA63C2C2A76A5003BDB97 /* SettingsView.swift */; };
 		5A6CA6412C2A8D92003BDB97 /* NewNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6CA6402C2A8D92003BDB97 /* NewNoteView.swift */; };
 		5A6CA6452C2AE679003BDB97 /* NotesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6CA6442C2AE679003BDB97 /* NotesStore.swift */; };
+		5AA86DDF2C2B1D1C00FD9127 /* NoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA86DDE2C2B1D1C00FD9127 /* NoteView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		5A6CA63C2C2A76A5003BDB97 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		5A6CA6402C2A8D92003BDB97 /* NewNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteView.swift; sourceTree = "<group>"; };
 		5A6CA6442C2AE679003BDB97 /* NotesStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesStore.swift; sourceTree = "<group>"; };
+		5AA86DDE2C2B1D1C00FD9127 /* NoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 				5A6CA6442C2AE679003BDB97 /* NotesStore.swift */,
 				5A6CA6302C2A6B89003BDB97 /* HomeView.swift */,
 				5A6CA6402C2A8D92003BDB97 /* NewNoteView.swift */,
+				5AA86DDE2C2B1D1C00FD9127 /* NoteView.swift */,
 				5A6CA6322C2A6B8A003BDB97 /* Assets.xcassets */,
 				5A6CA6342C2A6B8A003BDB97 /* Preview Content */,
 			);
@@ -148,6 +151,7 @@
 			files = (
 				5A6CA63D2C2A76A5003BDB97 /* SettingsView.swift in Sources */,
 				5A6CA6312C2A6B89003BDB97 /* HomeView.swift in Sources */,
+				5AA86DDF2C2B1D1C00FD9127 /* NoteView.swift in Sources */,
 				5A6CA6452C2AE679003BDB97 /* NotesStore.swift in Sources */,
 				5A6CA62F2C2A6B89003BDB97 /* notesApp.swift in Sources */,
 				5A6CA6412C2A8D92003BDB97 /* NewNoteView.swift in Sources */,
@@ -287,12 +291,13 @@
 				DEVELOPMENT_TEAM = DH5LR62L79;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "$(PRODUCT_NAME) needs permissions to write photos";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -317,12 +322,13 @@
 				DEVELOPMENT_TEAM = DH5LR62L79;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "$(PRODUCT_NAME) needs permissions to write photos";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
