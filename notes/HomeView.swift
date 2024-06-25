@@ -43,7 +43,7 @@ struct CardView: View {
                         .foregroundStyle(notesTint)
                 }
             }
-            .padding(.horizontal)
+            .padding()
         }
         .cornerRadius(10)
         .shadow(radius: 5)
@@ -51,7 +51,7 @@ struct CardView: View {
 }
 
 struct HomeView: View {
-    @StateObject private var store = NotesStore()
+    @StateObject var store = NotesStore()
 
     @State private var search = ""
     @State private var isLoading = false

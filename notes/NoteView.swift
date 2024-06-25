@@ -50,7 +50,7 @@ struct NoteView: View {
                         PanZoomView(size: proxy.size, image: UIImage(data: note.note)!)
                     }
                     .cornerRadius(10)
-                    .scaledToFit()
+                    .scaledToFill()
                     .padding()
                     .frame(maxHeight: .infinity)
                 } else {
@@ -59,6 +59,7 @@ struct NoteView: View {
                         .leftAligned()
                 }
             }
+            .frame(height: .infinity)
             .toolbar {
                 ToolbarItem(placement: .bottomBar) {
                     Spacer()
@@ -86,7 +87,6 @@ struct NoteView: View {
                     }
                 }
             }
-            .frame(height: .infinity)
             .navigationTitle("Note")
         }
     }
