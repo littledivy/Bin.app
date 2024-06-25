@@ -13,6 +13,7 @@
 		5A6CA6362C2A6B8A003BDB97 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A6CA6352C2A6B8A003BDB97 /* Preview Assets.xcassets */; };
 		5A6CA63D2C2A76A5003BDB97 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6CA63C2C2A76A5003BDB97 /* SettingsView.swift */; };
 		5A6CA6412C2A8D92003BDB97 /* NewNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6CA6402C2A8D92003BDB97 /* NewNoteView.swift */; };
+		5A6CA6452C2AE679003BDB97 /* NotesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6CA6442C2AE679003BDB97 /* NotesStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,7 @@
 		5A6CA6352C2A6B8A003BDB97 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		5A6CA63C2C2A76A5003BDB97 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		5A6CA6402C2A8D92003BDB97 /* NewNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteView.swift; sourceTree = "<group>"; };
+		5A6CA6442C2AE679003BDB97 /* NotesStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +59,7 @@
 			children = (
 				5A6CA62E2C2A6B89003BDB97 /* notesApp.swift */,
 				5A6CA63C2C2A76A5003BDB97 /* SettingsView.swift */,
+				5A6CA6442C2AE679003BDB97 /* NotesStore.swift */,
 				5A6CA6302C2A6B89003BDB97 /* HomeView.swift */,
 				5A6CA6402C2A8D92003BDB97 /* NewNoteView.swift */,
 				5A6CA6322C2A6B8A003BDB97 /* Assets.xcassets */,
@@ -145,6 +148,7 @@
 			files = (
 				5A6CA63D2C2A76A5003BDB97 /* SettingsView.swift in Sources */,
 				5A6CA6312C2A6B89003BDB97 /* HomeView.swift in Sources */,
+				5A6CA6452C2AE679003BDB97 /* NotesStore.swift in Sources */,
 				5A6CA62F2C2A6B89003BDB97 /* notesApp.swift in Sources */,
 				5A6CA6412C2A8D92003BDB97 /* NewNoteView.swift in Sources */,
 			);
