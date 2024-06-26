@@ -41,7 +41,7 @@ extension View {
 
 struct NoteView: View {
     var note: NotesStore.Note
-
+    
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -65,7 +65,7 @@ struct NoteView: View {
                     Spacer()
                 }
                 ToolbarItem(placement: .bottomBar) {
-                    let url = URL(string: "https://www.example.com")!
+                    let url = URL(string: "https://paste.divy.work" + note.ref)!
                     ShareLink(item: url) {
                         Label("Share", systemImage: "paperclip")
                     }
@@ -87,7 +87,7 @@ struct NoteView: View {
                     }
                 }
             }
-            .navigationTitle("Note")
+            .navigationTitle(note.title)
         }
     }
 }
@@ -134,5 +134,5 @@ struct PanZoomView: UIViewRepresentable {
 }
 
 #Preview {
-    NoteView(note: NotesStore.Note(note: Data("Hello, World!".utf8), type: .text))
+    NoteView(note: NotesStore.Note(note: Data("Hello, World!".utf8), type: .text, ref: "/p/asd", title: "Hello"))
 }

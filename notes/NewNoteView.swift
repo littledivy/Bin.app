@@ -47,8 +47,9 @@ struct NewNoteView: View {
 
     var action: (
         _: NoteType,
+        _: String,
         _: Data
-    ) -> Void = { _, _ in }
+    ) -> Void = { _, _, _ in }
 
     var body: some View {
         NavigationStack {
@@ -74,6 +75,7 @@ struct NewNoteView: View {
                         Button {
                             action(
                                 NoteType.text,
+                                title,
                                 Data(
                                     text.utf8
                                 )
@@ -94,7 +96,7 @@ struct NewNoteView: View {
                         if let image = try await item.loadTransferable(type: Image.self) {
                             if let uiimage = image.render() {
                                 let data = uiimage.jpegData(compressionQuality: 1)!
-                                action(NoteType.image, data)
+                                action(NoteType.image, title, data)
                                 
                                 dismiss()
                             }

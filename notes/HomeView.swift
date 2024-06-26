@@ -37,7 +37,7 @@ struct CardView: View {
                         .cornerRadius(10)
                         .scaledToFit()
                 } else {
-                    Text(String(data: note.note, encoding: .utf8)!)
+                    Text(note.title)
                         .font(.title)
                         .fontWeight(.bold)
                         .foregroundStyle(notesTint)
@@ -46,35 +46,34 @@ struct CardView: View {
             .padding()
         }
         .cornerRadius(10)
-        .shadow(radius: 5)
     }
 }
 
 struct HomeView: View {
     @StateObject var store = NotesStore()
-
+    
     @State private var search = ""
     @State private var isLoading = false
-
+    
     @AppStorage("serverURL") var serverURL: String = ""
     @AppStorage("notesTint") var notesTint: Color = .gray
     
     @AppStorage("username") var username: String = ""
     @AppStorage("password") var password: String = ""
     
-    func uploadNote(type: NoteType, noteData: Data) {
+    func uploadNote(type: NoteType, title: String, noteData: Data) {
         let url = URL(string: serverURL)!
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-
+        
         let loginString = "\(username):\(password)"
         let loginData = loginString.data(using: String.Encoding.utf8)!
         
         let base64LoginString = loginData.base64EncodedString()
         request.setValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
-
+        
         request.httpBody = noteData
         
         isLoading = true
@@ -85,8 +84,8 @@ struct HomeView: View {
                 print("Error: \(error)")
             } else {
                 Task {
-                    await store.push(note: NotesStore.Note(note: noteData, type: type))
-
+                    await store.push(note: NotesStore.Note(note: noteData, type: type, ref: String(data: data!, encoding: .utf8)!, title: title))
+                    
                     do {
                         try await store.load()
                     } catch {
@@ -98,7 +97,7 @@ struct HomeView: View {
         
         task.resume()
     }
-
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -111,7 +110,8 @@ struct HomeView: View {
                         spacing: 0
                     ) {
                         ForEach(store.notes.filter {
-                            search.isEmpty ? true : $0.type == NoteType.text && String(data: $0.note, encoding: .utf8)!.contains(search)
+                            search.isEmpty ? true : ($0.title.contains(search) || ($0.type == NoteType.text &&
+                                                                                   String(data: $0.note, encoding: .utf8)!.contains(search)))
                         }) { note in
                             NavigationLink(destination: NoteView(note: note)) {
                                 CardView(
@@ -120,11 +120,9 @@ struct HomeView: View {
                             .buttonStyle(.plain)
                         }
                     }
-                    .padding(.vertical)
                 }
                 .task {
                     do {
-                        // await store.clear()
                         try await store.load()
                     } catch {
                         await store.clear()
@@ -134,8 +132,8 @@ struct HomeView: View {
                 .navigationTitle("Home")
                 .toolbar {
                     ToolbarItemGroup(placement: .topBarTrailing) {
-                        NavigationLink(destination: NewNoteView(action: { type, data in
-                            uploadNote(type: type, noteData: data)
+                        NavigationLink(destination: NewNoteView(action: { type, title, data in
+                            uploadNote(type: type, title: title, noteData: data)
                         })) {
                             Image(systemName: "plus")
                         }

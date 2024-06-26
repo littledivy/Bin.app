@@ -32,7 +32,9 @@ class NotesStore: ObservableObject {
     struct Note: Identifiable, Codable {
         var note: Data
         var type: NoteType
-        var id: Data { note }
+        var ref: String
+        var title: String
+        var id: String { ref }
     }
     @Published var notes: [Note] = []
 
