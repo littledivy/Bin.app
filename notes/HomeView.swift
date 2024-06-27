@@ -56,7 +56,7 @@ struct HomeView: View {
     @State private var isLoading = false
     
     @AppStorage("serverURL") var serverURL: String = ""
-    @AppStorage("notesTint") var notesTint: Color = .gray
+    @AppStorage("notesTint") var notesTint: Color = .black
     
     @AppStorage("username") var username: String = ""
     @AppStorage("password") var password: String = ""
@@ -101,50 +101,117 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                ScrollView {
-                    if isLoading {
-                        ProgressView()
-                    }
-                    LazyVGrid(
-                        columns: [GridItem(.adaptive(minimum: 160))],
-                        spacing: 0
-                    ) {
-                        ForEach(store.notes.filter {
-                            search.isEmpty ? true : ($0.title.contains(search) || ($0.type == NoteType.text &&
-                                                                                   String(data: $0.note, encoding: .utf8)!.contains(search)))
-                        }) { note in
-                            NavigationLink(destination: NoteView(note: note)) {
-                                CardView(
-                                    notesTint: notesTint, note: note)
-                            }
-                            .buttonStyle(.plain)
-                        }
-                    }
-                }
-                .task {
-                    do {
-                        try await store.load()
-                    } catch {
-                        await store.clear()
-                        fatalError(error.localizedDescription)
-                    }
-                }
-                .navigationTitle("Home")
-                .toolbar {
-                    ToolbarItemGroup(placement: .topBarTrailing) {
-                        NavigationLink(destination: NewNoteView(action: { type, title, data in
-                            uploadNote(type: type, title: title, noteData: data)
-                        })) {
-                            Image(systemName: "plus")
+                GeometryReader { g in
+                    ScrollView {
+                        if isLoading {
+                            ProgressView()
                         }
                         
-                        NavigationLink(destination: SettingsView(
-                            serverURL: $serverURL,
-                            notesTint: $notesTint,
-                            username: $username,
-                            password: $password
-                        )) {
-                            Image(systemName: "gear")
+                        let textnotes = store.notes.filter { $0.type == .text }
+                        
+                        List {
+                            ForEach(textnotes.filter {
+                                search.isEmpty ? true : $0.title.contains(search)
+                            }) { note in
+                                NavigationLink(destination: NoteView(note: note)) {
+                                    Text(note.title)
+                                        .foregroundStyle(notesTint)
+                                }
+                            }
+                            .onDelete { index in
+                                Task {
+                                    let id = textnotes[index.first!].id
+                                    store.notes.removeAll { $0.id == id }
+                                    try? await store.save(notes: store.notes)
+                                }
+                            }
+                        }
+                        .frame(width: g.size.width - 5, height: CGFloat(textnotes.count * 45), alignment: .center)
+                        .listStyle(.inset)
+                        .scrollContentBackground(.hidden)
+                        
+                        let imagenotes = store.notes.filter { $0.type == .image }
+                        
+                        Section.init {
+                            HStack {
+                                Text("Images")
+                                    .font(.title)
+                                    .fontWeight(.bold)
+                                    .padding()
+                                
+                                Spacer()
+                            }
+                        }
+                        
+                        LazyVGrid(
+                            columns: [GridItem(.adaptive(minimum: 160))],
+                            spacing: 0
+                        ) {
+                            ForEach(imagenotes.filter {
+                                search.isEmpty ? true : $0.title.contains(search)
+                            }) { note in
+                                NavigationLink(destination: NoteView(note: note)) {
+                                    CardView(
+                                        notesTint: notesTint, note: note)
+                                }
+                                .buttonStyle(.plain)
+                            }
+                            
+                        }
+                        .task {
+                            do {
+#if targetEnvironment(simulator)
+                                try await store.save(notes: [
+                                    NotesStore.Note(
+                                        note: "Hello, World!".data(using: .utf8)!,
+                                        type: .text,
+                                        ref: "1",
+                                        title: "Hello, World!"
+                                    ),
+                                    NotesStore.Note(
+                                        note: UIImage(systemName: "star")!.pngData()!,
+                                        type: .image,
+                                        ref: "2",
+                                        title: "Star"
+                                    ),
+                                    NotesStore.Note(
+                                        note: "Test test test".data(using: .utf8)!,
+                                        type: .text,
+                                        ref: "3",
+                                        title: "2nd note!"
+                                    ),
+                                    NotesStore.Note(
+                                        note: UIImage(systemName: "plus")!.pngData()!,
+                                        type: .image,
+                                        ref: "4",
+                                        title: "Plus"
+                                    )
+                                ])
+#endif
+                                try await store.load()
+                            } catch {
+                                await store.clear()
+                                fatalError(error.localizedDescription)
+                            }
+                        }
+                        .navigationTitle("Home")
+                        .toolbar {
+                            ToolbarItemGroup(placement: .topBarTrailing) {
+                                NavigationLink(destination: NewNoteView(action: { type, title, data in
+                                    uploadNote(type: type, title: title, noteData: data)
+                                })) {
+                                    Image(systemName: "plus")
+                                }
+                                
+                                NavigationLink(destination: SettingsView(
+                                    serverURL: $serverURL,
+                                    notesTint: $notesTint,
+                                    username: $username,
+                                    password: $password
+                                )) {
+                                    Image(systemName: "gear")
+                                }
+                            }
                         }
                     }
                 }
