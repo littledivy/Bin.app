@@ -24,31 +24,6 @@
 
 import SwiftUI
 
-struct CardView: View {
-    var notesTint: Color
-    var note: NotesStore.Note
-    
-    var body: some View {
-        ZStack {
-            VStack {
-                if note.type == NoteType.image {
-                    Image(uiImage: UIImage(data: note.note)!)
-                        .resizable()
-                        .cornerRadius(10)
-                        .scaledToFit()
-                } else {
-                    Text(note.title)
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .foregroundStyle(notesTint)
-                }
-            }
-            .padding()
-        }
-        .cornerRadius(10)
-    }
-}
-
 struct HomeView: View {
     @StateObject var store = NotesStore()
     
@@ -151,8 +126,10 @@ struct HomeView: View {
                                 search.isEmpty ? true : $0.title.contains(search)
                             }) { note in
                                 NavigationLink(destination: NoteView(note: note)) {
-                                    CardView(
-                                        notesTint: notesTint, note: note)
+                                    Image(uiImage: UIImage(data: note.note)!)
+                                        .resizable()
+                                        .cornerRadius(10)
+                                        .scaledToFit()
                                 }
                                 .buttonStyle(.plain)
                             }
