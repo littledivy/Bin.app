@@ -99,6 +99,8 @@
 			dependencies = (
 			);
 			name = notes;
+			packageProductDependencies = (
+			);
 			productName = notes;
 			productReference = 5A6CA62B2C2A6B89003BDB97 /* notes.app */;
 			productType = "com.apple.product-type.application";
@@ -127,6 +129,8 @@
 				Base,
 			);
 			mainGroup = 5A6CA6222C2A6B89003BDB97;
+			packageReferences = (
+			);
 			productRefGroup = 5A6CA62C2C2A6B89003BDB97 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";

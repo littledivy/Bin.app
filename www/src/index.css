@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.bn-editor {
+	padding-inline: 0px;
+}
